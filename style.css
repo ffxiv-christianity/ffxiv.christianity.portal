@@ -4,7 +4,7 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    background-color: #ffffff;
     color: #333;
 }
 
@@ -82,11 +82,30 @@ main {
 }
 
 section {
-    background: #fff;
+    /* 使用經典羊皮紙色 */
+    /* background-color: #F5F1E6;  */
+    background: radial-gradient(circle, #F5F1E6 0%, #f4eee1 100%);
+    
+    /* 邊框改用深一點的褐色，模擬紙張邊緣 */
+    border: 1px solid #D2C1A5; 
+    
+    margin-bottom: 30px;
+    padding: 30px;
+    border-radius: 4px; /* 羊皮紙通常不會太圓潤，4px 剛剛好 */
+
+    /* 調整陰影：讓它看起來像疊在桌上的紙 */
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); 
+    
+    /* 讓內文字體顏色稍微深一點點，不要純黑，改用深灰褐色 */
+    color: #3E322B; 
+}
+
+/* 針對標題（如：關於我們）可以使用深一點的褐色 */
+section h2 {
+    color: #5C4033; 
+    border-bottom: 2px solid #D2C1A5;
+    padding-bottom: 10px;
     margin-bottom: 20px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 加上淡淡的陰影增加立體感 */
 }
 
 /* 按鈕樣式 */
@@ -112,4 +131,11 @@ footer {
     background: #2c3e50;
     color: #fff;
     margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    header {
+        min-height:35vh; /* 手機版稍微縮短高度，讓使用者更快看到後續內容 */
+        padding-bottom: 20px; /* 手機版間距縮小一點 */
+    }
 }
