@@ -65,9 +65,9 @@ nav {
 nav a {
     color: #5C4033; 
     text-decoration: none;
-    margin: 0 25px; /* 拉開間距 */
+    margin: 0 25px;             /* 間距 */
     font-weight: bold;
-    letter-spacing: 2px; /* 字距拉開 */
+    letter-spacing: 2px;        /* 字距 */
     transition: all 0.3s ease;
     font-size: 1.05rem;
 }
@@ -87,9 +87,9 @@ main {
 
 section {
     background: radial-gradient(circle, #F5F1E6 0%, #f4eee1 100%);
-    border: 1px solid #D2C1A5; 
+    border: 1px solid #D2C1A5;
     margin-bottom: 30px;
-    padding: 30px;
+    padding: 15px 30px 30px 30px;;
     border-radius: 4px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1); 
     color: #3E322B; 
@@ -98,6 +98,7 @@ section {
 /* 針對標題使用深褐色 */
 section h2 {
     color: #5C4033; 
+    margin-top: 0;
     border-bottom: 2px solid #D2C1A5;
     padding-bottom: 10px;
     margin-bottom: 20px;
@@ -261,5 +262,22 @@ footer {
     /* 修正手機版圖片高度 */
     .item img {
         height: auto !important;
+    }
+
+    /* 導覽列 */
+    nav {
+        padding: 0.5rem 0.2rem !important; 
+        justify-content: space-around !important;   /* 讓三個連結均勻撐開 */
+    }
+
+    nav h2 {
+        font-size: 0.8rem !important;
+        margin: 0px !important;
+    }
+
+    nav a {
+        font-size: 0.8rem !important;
+        margin: 0px !important;
+        letter-spacing: 1px !important;
     }
 }
