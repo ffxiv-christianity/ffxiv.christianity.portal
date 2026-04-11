@@ -398,11 +398,10 @@ header {
 
 /* 手機板排版 */
 @media (max-width: 768px) {
-
-    /* 1. Header 與導覽容器修正 */
     header {
-        min-height: 60px !important;
-        /* 允許 Header 內容溢出，這是讓子選單不被切斷的關鍵 */
+        min-height: 75px !important; 
+        align-items: flex-end !important; /* 讓分類文字靠底部對齊，漢堡靠頂部 */
+        padding-bottom: 8px;
         overflow: visible !important;
     }
 
@@ -411,66 +410,54 @@ header {
         width: 100%;
         display: flex;
         justify-content: center;
-        /* 移除任何可能裁切子選單的設定 */
         overflow: visible !important;
     }
 
-    /* 2. 主分頁清單：縮小間距防止過早換行 */
     .main-tabs {
+        padding-left: 55px !important;
         font-size: 1rem !important;
         justify-content: center;
-        /* 縮小間距 (原版 60px 太大) */
         flex-wrap: nowrap !important;
-        /* 強制不換行，但我們縮小字體來適應 */
         padding: 10px 0;
         overflow: visible !important;
         padding: 10px 15px !important;
-        justify-content: center !important;
-        gap: 15px !important; /* 稍微縮小間距，增加小手機的相容性 */
+        justify-content: flex-start !important;
+        gap: 12px !important;
     }
 
-    /* 3. 分頁文字縮放 */
     .tab-item {
-        /* 縮小字體，確保在 430px (iPhone Pro Max) 寬度內能併排三個標籤 */
         font-size: 1rem !important;
         font-weight: 700;
         letter-spacing: 1px !important;
         padding: 5px 2px;
         white-space: nowrap;
-        /* 確保文字本身不換行 */
     }
 
     .tab-item::after {
         display: none !important;
-        content: none !important; /* 雙重保險，徹底移除內容 */
+        content: none !important;
     }
 
-    /* 4. 子選單修正：處理遮擋與定位 */
     .submenu {
-position: absolute !important;
+        position: absolute !important;
         top: 100% !important;
         left: 50% !important;
-        /* 移除電腦版的 fadeIn，強制使用手機版專用動畫 */
         animation: fadeInMobile 0.25s ease-out forwards !important;
-        
-        /* 避免寬度在小手機上出錯 */
-        max-width: 85vw !important; 
+
+        max-width: 85vw !important;
         min-width: 150px !important;
         border-radius: 4px !important;
     }
 
-    /* 3. 定義手機版專用動畫：每一幀都必須帶著 translateX(-50%) */
     @keyframes fadeInMobile {
         from {
             opacity: 0;
             transform: translate(-50%, -10px);
-            /* 水平維持 -50%，垂直往上偏 10px */
         }
 
         to {
             opacity: 1;
             transform: translate(-50%, 0);
-            /* 結束時維持水平置中 */
         }
     }
 
@@ -483,7 +470,6 @@ position: absolute !important;
         border-bottom: none;
     }
 
-    /* 5. 內容區塊修正 */
     #photos-flex-container {
         flex-direction: column;
         align-items: center;
@@ -493,12 +479,28 @@ position: absolute !important;
 
     .photos-img-frame,
     .photos-text-frame {
-        width: 95% !important;
-        flex: none;
-        box-sizing: border-box;
+  padding: 30px 20px 60px 20px !important; /* 縮小內距，底部留空間給 h3 */
+        min-height: auto !important; /* 讓高度隨內容撐開 */
     }
 
     .item img {
         height: auto !important;
+    }
+
+.note-content h3 {
+        position: relative !important; /* 改為相對定位，不再漂浮 */
+        bottom: auto !important;
+        right: auto !important;
+        font-size: 0.9rem !important; /* 提高易讀性，0.6rem 太小了 */
+        text-align: right;
+        margin-top: 20px !important;
+        display: block;
+        width: 100%;
+    }
+
+    /* 處理多個 h3 (例如署名 + 日期) */
+    .note-content h3 + h3 {
+        margin-top: 5px !important;
+        bottom: auto !important;
     }
 }
