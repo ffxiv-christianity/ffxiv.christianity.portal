@@ -4,14 +4,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FF14 基督教公會 | 艾奧傑亞的團契</title>
-    <link rel="stylesheet" href="css/otherside.css">
+    <title>教堂秘密深處</title>
+    <link rel="stylesheet" href="css/otherside.css?v=260427">
 </head>
 
 <body>
-    <div class="front-layer">
-        <img src="images/耶穌張臂_右.jpg" alt="">
+    <audio id="bgm" loop style="display: none; visibility: hidden; position: absolute; width: 0; height: 0;">
+        <source src="" type="audio/mpeg">
+    </audio>
+
+    <div class="music-player">
+        <div id="music-toggle" class="music-fab" onclick="toggleMusic()">
+            <span class="icon">♪</span>
+        </div>
     </div>
+
+    <div class="hotbar-wrapper" id="ui-hotbar">
+        <button class="hotbar-toggle" onclick="toggleHotbar()" id="hotbar-btn">▼</button>
+
+        <nav class="hotbar">
+            <a href="#home" onclick="switchBlock(event, 'block-home', this)" class="hotbar-slot active-slot"
+                data-tooltip="回到首頁">
+                <img src="images/otherside/home.png" alt="Home" class="slot-icon">
+            </a>
+            <a href="#about" onclick="switchBlock(event, 'block-about', this)" class="hotbar-slot"
+                data-tooltip="關於我們">
+                <img src="images/otherside/about.png" alt="about" class="slot-icon">
+            </a>
+            <a href="#service" onclick="switchBlock(event, 'block-service', this)" class="hotbar-slot" data-tooltip="服務項目">
+                <img src="images/otherside/service.png" alt="Service" class="slot-icon">
+            </a>
+            <a href="#members" onclick="switchBlock(event, 'block-members', this)" class="hotbar-slot"
+                data-tooltip="店員介紹">
+                <img src="images/otherside/members.png" alt="Members" class="slot-icon">
+            </a>
+            <a href="index.html" class="hotbar-slot" data-tooltip="返回教堂">
+                <img src="images/otherside/exit.png" alt="Exit" class="slot-icon">
+            </a>
+        </nav>
+    </div>
+
+    <section id="block-home" class="other-block active">
+        <picture>
+            <source media="(max-width: 768px)" srcset="images/otherside/耶穌張臂_直.jpg">
+
+            <img src="images/otherside/耶穌張臂_右.jpg" alt="主視覺" class="fullscreen-bg">
+        </picture>
+        <div class="content-wrapper"> </div>
+    </section>
+
+    <section id="block-about" class="other-block">
+        <div class="content-wrapper">
+            <h2>關於我們</h2>
+            <p>RP店描述、地址、規則...</p>
+        </div>
+    </section>
+
+    <section id="block-service" class="other-block">
+        <div class="content-wrapper">
+            <h2>服務項目</h2>
+            <p>店內服務、菜單...</p>
+        </div>
+    </section>
+
+    <section id="block-members" class="other-block">
+        <div class="content-wrapper">
+            <h2>店員介紹</h2>
+
+            <div class="members-grid">
+                <div class="member-card">
+                    <div class="member-img-box">
+                        <img src="images/情人節/抖腳狂人鳥1.jpg" alt="店員照片">
+                        <!-- <p>照片</p> -->
+                    </div>
+                    <div class="member-text-box">
+                        <h3>ID1</h3>
+                        <p>職階：店長<br>專長：(負責工作)<br>「自我介紹...」</p>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-img-box">
+                        <img src="images/情人節/抖腳狂人鳥1.jpg" alt="店員照片">
+                        <!-- <p>照片</p> -->
+                    </div>
+                    <div class="member-text-box">
+                        <h3>ID2</h3>
+                        <p>職階：XX<br>專長：(負責工作)<br>「自我介紹...」</p>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-img-box">
+                        <img src="images/情人節/抖腳狂人鳥1.jpg" alt="店員照片">
+                        <!-- <p>照片</p> -->
+                    </div>
+                    <div class="member-text-box">
+                        <h3>ID3</h3>
+                        <p>職階：XX<br>專長：(負責工作)<br>「自我介紹...」</p>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-img-box">
+                        <img src="images/情人節/抖腳狂人鳥1.jpg" alt="店員照片">
+                        <!-- <p>照片</p> -->
+                    </div>
+                    <div class="member-text-box">
+                        <h3>ID4</h3>
+                        <p>職階：XX<br>專長：(負責工作)<br>「自我介紹...」</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                        <p>測試行</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="js/otherside.js"></script>
 
 </body>
 

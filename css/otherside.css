@@ -1,30 +1,465 @@
-.front-layer {
+/* =========================================
+   1. 全局樣式與核心佈局 (General)
+   ========================================= */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background-color: #204389f4;
+    color: #d4c5b0;
+    font-family: "微軟正黑體", "Noto Sans TC", sans-serif;
+    overflow: hidden;
+    /* 禁止外層滾動，維持一頁式遊戲感 */
+}
+
+/* 核心區塊切換系統 */
+.other-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: clamp(20px, 5vw, 100px);
+    box-sizing: border-box;
+}
+
+.other-block.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+/* 基礎內容容器 */
+.content-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 clamp(20px, 5vw, 50px);
+    box-sizing: border-box;
+    transition: all 0.4s ease-out;
+    position: relative;
+    z-index: 1;
+}
+
+.content-wrapper h2 {
+    font-size: clamp(2rem, 3vw, 3.5rem);
+    letter-spacing: clamp(2px, 0.5vw, 8px);
+    margin-bottom: clamp(20px, 4.5vh, 40px);
+    color: #fdfaf5;
+}
+
+.content-wrapper p {
+    font-size: clamp(1rem, 1.5vw, 1.8rem);
+    line-height: clamp(1.8, 3vh, 2.2);
+}
+
+/* =========================================
+    音樂播放器 (Music Player)
+   ========================================= */
+.music-player {
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 30px !important;
+    z-index: 6000 !important;
+    width: 55px !important;
+    height: 55px !important;
+    overflow: visible !important;
+}
+
+.music-fab {
+    width: 90% !important;
+    height: 90% !important;
+    border-radius: 50% !important;
+    background-color: #F5F1E6 !important;
+    border: 1px solid #D2C1A5 !important;
+    color: #5C4033;
+    font-size: 1.8rem !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-image: none !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative !important;
+}
+
+.music-fab .icon {
+    position: relative;
+    display: inline-block;
+    font-style: normal;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.music-fab:not(.playing)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 105%;
+
+    height: 1.5px;
+    background-color: #8b0000cb;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+    border-radius: 2px;
+}
+
+/* =========================================
+   2. 主頁面 (Home)
+   ========================================= */
+.fullscreen-bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    z-index: -1;
+}
+
+/* =========================================
+   3. 店員介紹 (#members)
+   ========================================= */
+#block-members {
+    align-items: flex-start;
+    padding-top: clamp(10px, 2vh, 20px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#block-members .content-wrapper {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 4vw;
+    box-sizing: border-box;
+}
+
+#block-members h2 {
+    margin-top: 0;
+    margin-bottom: 3.5vh;
+    text-align: center;
+}
+
+/* 名單網格容器 */
+.members-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    width: 100%;
+    max-height: none;
+    overflow-y: visible;
+
+    grid-auto-rows: 68vh;
+    padding-bottom: 20px;
+}
+
+/* 網格滾動條美化 */
+.members-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.members-grid::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.members-grid::-webkit-scrollbar-thumb {
+    background: #8c7355;
+    border-radius: 4px;
+}
+
+/* 角色卡片本體 */
+.member-card {
+    display: flex;
+    height: 100%;
+    background: rgba(20, 20, 22, 0.85);
+    border: 1px solid rgba(210, 193, 165, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.member-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(210, 193, 165, 0.6);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* 立繪區塊 */
+.member-img-box {
+    flex: 0 0 60%;
+    height: 100%;
+    background: #000;
+}
+
+.member-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: brightness(0.9);
+    transition: filter 0.3s ease;
+}
+
+.member-card:hover .member-img-box img {
+    filter: brightness(1.1);
+}
+
+/* 文字介紹區塊 */
+.member-text-box {
+    flex: 1;
+    padding: clamp(20px, 3vw, 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.member-text-box h3 {
+    color: #fce3a1;
+    margin: 0 0 15px 0;
+    font-size: clamp(1.2rem, 1.8vw, 2.2rem);
+    border-bottom: 1px solid rgba(210, 193, 165, 0.3);
+    padding-bottom: 10px;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.member-text-box p {
+    margin: 0;
+    line-height: 1.6;
+    color: #d4c5b0;
+    font-size: clamp(0.95rem, 1vw, 1.7rem);
+}
+
+/* 文字內置滾動條 */
+.member-text-box::-webkit-scrollbar {
+    width: 4px;
+}
+
+.member-text-box::-webkit-scrollbar-thumb {
+    background: rgba(140, 115, 85, 0.5);
+    border-radius: 10px;
+}
+
+/* =========================================
+   4. HUD 選單列 (Hotbar)
+   ========================================= */
+.hotbar-wrapper {
+    transform-origin: bottom center;
+    transform: translateX(-50%) translateY(0);
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    z-index: 9999;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hotbar-wrapper.hidden {
+    transform: translateX(-50%) translateY(calc(100% - 15px));
+}
+
+.hotbar-toggle {
+    background: rgba(30, 30, 30, 0.85);
+    color: #9d8e73;
+    border: 1px solid rgba(150, 130, 100, 0.4);
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    padding: 2px 25px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+    user-select: none;
+    backdrop-filter: blur(4px);
+}
+
+.hotbar {
+    display: flex;
+    gap: 2px;
+    background: rgba(20, 20, 22, 0.75);
+    backdrop-filter: blur(8px);
+    padding: 4px;
+    border-radius: 6px;
+    border: 1px solid rgba(100, 100, 100, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.6);
+    min-width: max-content;
+}
+
+.hotbar .hotbar-slot:last-child {
+    margin-left: clamp(20px, 1.5vw, 50px);
+    border-color: rgba(207, 84, 81, 0.567);
+}
+
+.hotbar-slot {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #333;
+    border-radius: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.9);
 }
 
-.front-layer img {
-    max-width: 100%;
-    max-height: 100%;
+.hotbar-slot:hover {
+    background: rgba(60, 60, 60, 0.6);
+    border-color: #8c7355;
+}
+
+.slot-icon {
+    width: 80%;
+    height: 80%;
     object-fit: contain;
-    animation: fadeIn 2s ease-in-out;
+    transition: all 0.3s ease;
+    opacity: 0.8;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(1.05);
+.hotbar-slot.active-slot {
+    background: rgba(210, 193, 165, 0.15);
+    border-color: #fce3a1;
+    box-shadow: 0 0 8px rgba(252, 227, 161, 0.4), inset 0 0 5px rgba(252, 227, 161, 0.2);
+}
+
+.hotbar-slot::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 15, 15, 0.9);
+    color: #e0d5c1;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    border: 1px solid #5a5040;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hotbar-slot:hover::after {
+    opacity: 1;
+}
+
+/* =========================================
+   5. 響應式佈局 (RWD)
+   ========================================= */
+
+/* 手機版 (768px 以下) */
+@media (max-width: 768px) {
+    .hotbar-slot::after {
+        display: none !important;
     }
 
-    to {
-        opacity: 1;
-        transform: scale(1);
+    .hotbar-slot {
+        width: 46px;
+        height: 46px;
+    }
+
+    .hotbar {
+        padding: 3px;
+        gap: 2px;
+    }
+
+    .hotbar .hotbar-slot:last-child {
+        margin-left: 15px;
+    }
+
+
+    /* =========================================
+   店員介紹 (#members)
+========================================= */
+    #block-members .content-wrapper {
+        max-width: 95vw;
+        padding: 0 10px;
+    }
+
+    .members-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 70vh;
+        gap: 20px;
+    }
+
+    .member-card {
+        flex-direction: column;
+    }
+
+    .member-img-box {
+        flex: 0 0 50%;
+        width: 100%;
+    }
+
+    .member-text-box {
+        flex: 0 0 50%;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: center;
+    }
+
+    .member-text-box h3 {
+        font-size: 1.5rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .member-text-box p {
+        font-size: 1rem;
+        width: 100%;
+    }
+}
+
+
+/* 2K 螢幕 (大於 1920px) */
+@media (min-width: 1921px) {
+    .hotbar-wrapper {
+        transform: translateX(-50%) translateY(0) scale(1.3);
+    }
+
+    .hotbar-wrapper.hidden {
+        transform: translateX(-50%) translateY(calc(100% - 24px)) scale(1.3);
+    }
+}
+
+/* 4K 螢幕 (大於 2560px) */
+@media (min-width: 2561px) {
+    .hotbar-wrapper {
+        transform: translateX(-50%) translateY(0) scale(1.8);
+    }
+
+    .hotbar-wrapper.hidden {
+        transform: translateX(-50%) translateY(calc(100% - 24px)) scale(1.8);
     }
 }
